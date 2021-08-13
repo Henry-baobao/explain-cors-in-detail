@@ -38,7 +38,7 @@ function App() {
   //#region solve cors
   const noCorsRequest = () => {
     fetch(`${SOLVE_WEBSITE}/list/menu/no-cors`, {
-      mode: "no-cors",
+      mode: "no-cors"
     })
       .then((res) => {
         console.log("no-cors request response: ", res);

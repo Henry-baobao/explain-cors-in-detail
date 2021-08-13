@@ -49,11 +49,15 @@
 
     function getMenu(id) {
       const script = document.createElement("script");
+      //1
       // script.src = "http://localhost:5002/menu/" + id;
+
+      //2
       script.src = "http://localhost:5002/menu/" + id + "?callback=printData";
 
       document.body.appendChild(script);
 
+      //1
       // console.log("data is: ", data);
     }
   </script>

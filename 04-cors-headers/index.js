@@ -40,14 +40,15 @@ app.post("/menu/simple", urlencodedParser, (req, res) => {
 app.post("/menu/complex", jsonParser, (req, res) => {
   const body = req.body;
   console.log("complex request body: ", body);
-  //   res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.send(JSON.stringify(body));
 });
-// app.options("/menu/complex", (req, res) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-// //   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   res.end();
-// });
+app.options("/menu/complex", (req, res) => {
+  console.log("complex preflight request");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.end();
+});
 
 app.delete("/menu/delete", jsonParser, (req, res) => {
   console.log("delete body: ", req.body);
@@ -56,7 +57,7 @@ app.delete("/menu/delete", jsonParser, (req, res) => {
 });
 app.options("/menu/delete", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  //   res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-app-version");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-app-version");
   res.setHeader("Access-Control-Allow-Methods", "DELETE");
   res.end();
 });
@@ -65,7 +66,7 @@ app.delete("/menu/cookie", jsonParser, (req, res) => {
   console.log("cookie request: ", req.body, req.cookies);
   res.setHeader("Access-Control-Allow-Origin", VALID_ORIGIN);
   res.setHeader("Access-Control-Allow-Credentials", true);
-  //   res.setHeader("Set-Cookie", "Backend=Express");
+  res.setHeader("Set-Cookie", "Backend=Express");
   res.send(JSON.stringify(req.body));
 });
 app.options("/menu/cookie", (req, res) => {
@@ -87,12 +88,12 @@ app.options("/header", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", VALID_ORIGIN);
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-app-version");
   res.setHeader("Access-Control-Allow-Methods", "DELETE");
-  console.log('options header')
+  console.log("options header");
   res.end();
 });
 
 app.delete("/cache", jsonParser, (req, res) => {
-  console.log("cookie request: ", req.body);
+  console.log("cookie request: ", req.body, Date.now());
   res.setHeader("Access-Control-Allow-Origin", VALID_ORIGIN);
   res.setHeader("X-Service-Version", "2.0");
   res.setHeader("Access-Control-Expose-Headers", "x-service-version");
@@ -102,8 +103,8 @@ app.options("/cache", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", VALID_ORIGIN);
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-app-version");
   res.setHeader("Access-Control-Allow-Methods", "DELETE");
-  res.setHeader("Access-Control-Max-Age", 60);
-  console.log('options cache')
+  res.setHeader("Access-Control-Max-Age", 120);
+  console.log("options cache");
   res.end();
 });
 
