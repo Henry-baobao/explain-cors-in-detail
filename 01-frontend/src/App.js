@@ -4,6 +4,8 @@ import "./App.css";
 const ERROR_WEBSITE = "http://localhost:5001";
 const SOLVE_WEBSITE = "http://localhost:5002";
 const HEADERS_WEBSITE = "http://localhost:5003";
+const PROXY_WEBSITE = "http://localhost:3001";
+const DIRECT_WEBSITE = "http://localhost:5005";
 
 function App() {
   //#region CORS-error
@@ -192,6 +194,42 @@ function App() {
   };
   //#endregion
 
+  //#region cors with proxy server
+  const corsWithoutProxy = () => {
+    fetch(`${DIRECT_WEBSITE}/menu/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: 1,
+        name: "Home",
+        path: "/home",
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => console.log("without proxy result: ", result))
+      .catch((err) => console.log("without proxy err: ", err));
+  };
+
+  const corsWithProxy = () => {
+    fetch(`${PROXY_WEBSITE}/api/menu/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: 1,
+        name: "Home",
+        path: "/home",
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => console.log("with proxy result: ", result))
+      .catch((err) => console.log("with proxy err: ", err));
+  };
+  //#endregion
+
   return (
     <div className="App">
       <header className="App-header">
@@ -225,6 +263,11 @@ function App() {
           <button onClick={corsWithCookie}>Cookie</button>
           <button onClick={corsWithHeader}>User-Header</button>
           <button onClick={corsCache}>Cache-Preflight</button>
+        </div>
+
+        <div className="Region proxy">
+          <button onClick={corsWithoutProxy}>Without-Proxy</button>
+          <button onClick={corsWithProxy}>With-Proxy</button>
         </div>
       </header>
     </div>
