@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Dashboard",
+            "path": "/dashboard",
+        },
+        {
+            "id": 2,
+            "name": "Region",
+            "path": "/region",
+        },
+        {
+            "id": 3,
+            "name": "IOT",
+            "path": "/iot",
+        },
+    ]
+};

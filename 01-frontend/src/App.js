@@ -10,7 +10,7 @@ const DIRECT_WEBSITE = "http://localhost:5005";
 function App() {
   //#region CORS-error
   const menuRequest = () => {
-    fetch(`${ERROR_WEBSITE}/list/menu`)
+    fetch(`${ERROR_WEBSITE}/menu.json`)
       .then((res) => {
         console.log("menu request response: ", res);
       })

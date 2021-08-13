@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -27,8 +28,9 @@ const menus = {
 app.use("/images", express.static(__dirname + "/images"));
 app.use("/scripts", express.static(__dirname + "/scripts"));
 
-app.get("/list/menus", (req, res) => {
-  res.send(JSON.stringify(menus));
+app.get("/menu.json", (req, res) => {
+  console.log("send file");
+  res.sendFile(path.join(__dirname + "/files/menu.json"));
 });
 
 app.post("/menu", urlencodedParser, (req, res) => {
